@@ -9,3 +9,5 @@ To verify the data from the sensor, we can check it on the Arduino IDE using the
 After that, connect it with the Raspberry Pi. Change the serial port name in the file "main_code/emg_data_extraction_code_rpi.py." After changing it, run the code. It will create a file named "emg_parameters.csv." This way, you can generate your own datasets.
 
 I have applied a machine learning algorithm for the actuation of fingers. The ML code will be uploaded shortly.
+
+The hand used in this project is 3D printed and I had uploaded the file of individual component.
