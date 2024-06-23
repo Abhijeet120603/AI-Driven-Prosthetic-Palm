@@ -1,0 +1,15 @@
+sampling frequency
+
+
+
+
+
+
+
+amplitude
+phase
+rise time
+turns
+baseline crossing
+duration
+satellite

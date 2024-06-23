@@ -1,0 +1,209 @@
+code1
+
+
+int emgPin = A0;
+int emgValue = 0;
+ 
+void setup()
+{
+  Serial.begin(9600);
+}
+
+ void loop()
+ {
+  emgValue = analogRead(emgPin);
+  Serial.println(emgValue);
+  delay(50);
+ }
+
+
+code2
+
+const int emgPin = A0;
+int emgRawValue = 0;
+int lastEmgRawValue = 0;
+int ups = 0;
+int downs = 0;
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  emgRawValue = analogRead(emgPin);
+
+  if (emgRawValue > lastEmgRawValue) {
+    ups++;
+  } else if (emgRawValue < lastEmgRawValue) {
+    downs++;
+  }
+
+  lastEmgRawValue = emgRawValue;
+
+  Serial.print("Processed Value: ");
+  Serial.print(emgRawValue);
+  Serial.print("\tUps: ");
+  Serial.print(ups);
+  Serial.print("\tDowns: ");
+  Serial.println(downs);
+
+  delay(100);
+}
+
+
+code3
+
+const int emgPin = A0; // EMG probe pin
+
+int emgValue = 0; // Variable to store EMG value
+int emgRawValue = 0; // Variable to store raw EMG value
+int lastEmgRawValue = 0; // Variable to store last raw EMG value
+int ups = 0; // Count of upward changes in EMG value
+int downs = 0; // Count of downward changes in EMG value
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  // Read the EMG value
+  emgValue = analogRead(emgPin);
+  
+  // Print the EMG value
+  Serial.println("EMG Value: " + String(emgValue));
+  
+  // Read the raw EMG value and count ups/downs
+  emgRawValue = analogRead(emgPin);
+  if (emgRawValue > lastEmgRawValue) {
+    ups++;
+  } else if (emgRawValue < lastEmgRawValue) {
+    downs++;
+  }
+  lastEmgRawValue = emgRawValue;
+  
+  // Print the processed EMG value, ups, and downs
+  Serial.print("Processed Value: ");
+  Serial.print(emgRawValue);
+  Serial.print("\tUps: ");
+  Serial.print(ups);
+  Serial.print("\tDowns: ");
+  Serial.println(downs);
+
+  // Delay before the next reading
+  delay(100);
+}
+
+
+code4
+
+const int emgPin = A0; // EMG probe pin
+
+int emgValue = 0; // Variable to store EMG value
+int emgRawValue = 0; // Variable to store raw EMG value
+int lastEmgRawValue = 0; // Variable to store last raw EMG value
+int ups = 0; // Count of upward changes in EMG value
+int downs = 0; // Count of downward changes in EMG value
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  // Read the EMG value
+  emgValue = analogRead(emgPin);
+  
+  // Print the EMG value for serial plotter
+  Serial.print(emgValue);
+  Serial.print(" ");
+  
+  // Read the raw EMG value and count ups/downs
+  emgRawValue = analogRead(emgPin);
+  if (emgRawValue > lastEmgRawValue) {
+    ups++;
+  } else if (emgRawValue < lastEmgRawValue) {
+    downs++;
+  }
+  lastEmgRawValue = emgRawValue;
+  
+  // Print the processed EMG value for serial plotter
+  Serial.print(emgRawValue);
+  Serial.print(" ");
+  Serial.print(ups);
+  Serial.print(" ");
+  Serial.println(downs);
+
+  // Delay before the next reading
+  delay(100);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function doGet(e) { 
+  Logger.log( JSON.stringify(e) );
+  var result = 'Ok';
+  if (e.parameter == 'undefined') {
+    result = 'No Parameters';
+  }
+  else {
+    var sheet_id = '1snmqXm55hNs6Zt29iu8ZZ_AYNhZ4qAKLGp6WlWRMDeg'; // Spreadsheet ID
+    var sheet = SpreadsheetApp.openById(sheet_id).getActiveSheet();
+    var newRow = sheet.getLastRow() + 1; 
+    var rowData = [];
+    
+
+    for (var param in e.parameter) {
+      Logger.log('In for loop, param=' + param);
+      var value = stripQuotes(e.parameter[param]);
+      Logger.log(param + ':' + e.parameter[param]);
+      switch (param) {
+        case 'emg_value':
+          rowData[0] = value; // Temperature in column C
+          result = 'emg_value Written on column A '; 
+          break;
+        case 'emg_raw_value':
+          rowData[1] = value; // Humidity in column D
+          result += ' ,emg_raw_value Written on column B'; 
+          break;
+        case 'ups':
+          rowData[2] = value; // Temperature in column C
+          result = 'ups Written on column C '; 
+          break;
+        case 'down':
+          rowData[3] = value; // Humidity in column D
+          result += ' ,down Written on column D'; 
+          break; 
+        default:
+          result = "unsupported parameter";
+      }
+    }
+    Logger.log(JSON.stringify(rowData));
+    var newRange = sheet.getRange(newRow, 1, 1, rowData.length);
+    newRange.setValues([rowData]);
+  }
+  return ContentService.createTextOutput(result);
+}
+function stripQuotes( value ) {
+  return value.replace(/^["']|['"]$/g, "");
+}

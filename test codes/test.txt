@@ -1,0 +1,173 @@
+code1
+
+import RPi.GPIO as GPIO
+import time
+
+# Disable GPIO warnings
+GPIO.setwarnings(False)
+
+# Define GPIO pins
+StepX = 18
+DirX = 15
+Enable = 14
+
+# Set the GPIO mode and initialize pins
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(StepX, GPIO.OUT)
+GPIO.setup(DirX, GPIO.OUT)
+GPIO.setup(Enable, GPIO.OUT)
+
+try:
+    # Set direction (HIGH for clockwise, LOW for anticlockwise)
+    GPIO.output(DirX, GPIO.HIGH)
+
+    # Disable motor driver (LOW for enabled, HIGH for disabled)
+    GPIO.output(Enable, GPIO.LOW)
+
+    # Move the stepper motor 45 degrees
+    for _ in range(50 * 45):
+        GPIO.output(StepX, GPIO.HIGH)
+        time.sleep(0.0005)  # Adjust sleep time for your motor
+        GPIO.output(StepX, GPIO.LOW)
+        time.sleep(0.0005)  # Adjust sleep time for your motor
+
+
+except KeyboardInterrupt:
+    # Clean up GPIO on program exit
+    GPIO.cleanup()
+
+
+
+
+
+
+
+
+
+
+
+code2
+
+import RPi.GPIO as GPIO
+import time
+
+# Disable GPIO warnings
+GPIO.setwarnings(False)
+
+# Define GPIO pins
+StepX = 18
+DirX = 15
+Enable = 14
+
+# Set the GPIO mode and initialize pins
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(StepX, GPIO.OUT)
+GPIO.setup(DirX, GPIO.OUT)
+GPIO.setup(Enable, GPIO.OUT)
+
+try:
+    # Set direction (HIGH for clockwise, LOW for anticlockwise)
+    GPIO.output(DirX, GPIO.HIGH)
+
+    # Disable motor driver (LOW for enabled, HIGH for disabled)
+    GPIO.output(Enable, GPIO.LOW)
+
+    for i in range(3):  # Iterate the loop 3 times
+        # Move the stepper motor 45 degrees
+        for i in range(50 * 45):
+            GPIO.output(StepX, GPIO.HIGH)
+            time.sleep(0.0005)  # Adjust sleep time for your motor
+            GPIO.output(StepX, GPIO.LOW)
+            time.sleep(0.0005)  # Adjust sleep time for your motor
+
+        # Delay for 30 seconds between iterations
+        time.sleep(30)
+
+    time.sleep(60)
+    # Set direction (HIGH for clockwise, LOW for anticlockwise)
+    GPIO.output(DirX, GPIO.LOW)
+
+    # Disable motor driver (LOW for enabled, HIGH for disabled)
+    GPIO.output(Enable, GPIO.LOW)
+
+    for i in range(3):  # Iterate the loop 3 times
+        # Move the stepper motor 45 degrees
+        for i in range(50 * 45):
+            GPIO.output(StepX, GPIO.HIGH)
+            time.sleep(0.0005)  # Adjust sleep time for your motor
+            GPIO.output(StepX, GPIO.LOW)
+            time.sleep(0.0005)  # Adjust sleep time for your motor
+
+        # Delay for 30 seconds between iterations
+        time.sleep(30)
+
+except KeyboardInterrupt:
+    # Clean up GPIO on program exit
+    GPIO.cleanup()
+
+
+
+
+
+
+
+
+
+code3
+
+import RPi.GPIO as GPIO
+import time
+
+# Disable GPIO warnings
+GPIO.setwarnings(False)
+
+# Define GPIO pins
+StepX = 18
+DirX = 15
+Enable = 14
+
+# Set the GPIO mode and initialize pins
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(StepX, GPIO.OUT)
+GPIO.setup(DirX, GPIO.OUT)
+GPIO.setup(Enable, GPIO.OUT)
+
+try:
+    # Set direction (HIGH for clockwise, LOW for anticlockwise)
+    GPIO.output(DirX, GPIO.HIGH)
+
+    # Disable motor driver (LOW for enabled, HIGH for disabled)
+    GPIO.output(Enable, GPIO.LOW)
+
+    for _ in range(3):  # Iterate the loop 3 times
+        # Move the stepper motor 45 degrees clockwise
+        for _ in range(50 * 45):
+            GPIO.output(StepX, GPIO.HIGH)
+            time.sleep(0.0005)  # Adjust sleep time for your motor
+            GPIO.output(StepX, GPIO.LOW)
+            time.sleep(0.0005)  # Adjust sleep time for your motor
+
+        # Delay for 1 minute between clockwise and anticlockwise
+        time.sleep(60)
+
+    # Reverse direction (LOW for clockwise, HIGH for anticlockwise)
+    GPIO.output(DirX, GPIO.LOW)
+
+    # Pause for 1 minute before moving anticlockwise
+    time.sleep(60)
+
+    for _ in range(3):  # Iterate the loop 3 times
+        # Move the stepper motor 45 degrees anticlockwise
+        for _ in range(50 * 45):
+            GPIO.output(StepX, GPIO.HIGH)
+            time.sleep(0.0005)  # Adjust sleep time for your motor
+            GPIO.output(StepX, GPIO.LOW)
+            time.sleep(0.0005)  # Adjust sleep time for your motor
+
+        # Delay for 1 minute between anticlockwise and clockwise
+        time.sleep(60)
+
+except KeyboardInterrupt:
+    # Clean up GPIO on program exit
+    GPIO.cleanup()
+
